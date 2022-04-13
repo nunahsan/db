@@ -1,5 +1,5 @@
 # db
-laravel package DB
+laravel package - DB functionality
 
 # sample usage
 ```

@@ -2,7 +2,6 @@
 
 namespace Nunahsan\Db;
 
-use Illuminate\Support\Collection;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 

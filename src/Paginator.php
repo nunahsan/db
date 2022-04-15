@@ -30,13 +30,14 @@ class Paginator extends \Illuminate\Support\ServiceProvider {
         $select->offset = (self::$rows_per_page * self::$page) - self::$rows_per_page;
 
         //result
+        $items = $select->get()->all();
         return (Object) [
-                    'items' => $select->get()->all(),
-                    'pagination' => self::set_pagination()
+                    'items' => $items,
+                    'pagination' => self::set_pagination(count($items))
         ];
     }
 
-    protected static function set_pagination() {
+    protected static function set_pagination($totalItem) {
         //reset limit, offset, order
         unset(self::$select->limit, self::$select->offset, self::$select->orders);
 
@@ -56,7 +57,7 @@ class Paginator extends \Illuminate\Support\ServiceProvider {
                     'first_page' => $total_rows > 0 ? 1 : NULL,
                     'last_page' => $last_page,
                     'prev_page' => self::$page == 1 ? NULL : self::$page - 1,
-                    'next_page' => self::$page == $last_page ? NULL : self::$page + 1
+                    'next_page' => self::$page == $last_page ? NULL : ($totalItem == 0 ? NULL : self::$page + 1)
         ];
     }
 

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Paginator extends \Illuminate\Support\ServiceProvider {
 
     protected static $page = 1;
-    protected static $rows_per_page = 10;
+    protected static $rows_per_page = 15;
     protected static $select = null;
 
     public function boot() {
@@ -19,7 +19,7 @@ class Paginator extends \Illuminate\Support\ServiceProvider {
         
     }
 
-    public static function get(Builder $select, $PaginationRows = 10) {
+    public static function get(Builder $select, $PaginationRows = 15) {
         self::$select = $select;
         self::$page = (int) request()->get('page', 1);
         self::$rows_per_page = $PaginationRows;

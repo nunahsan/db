@@ -49,6 +49,9 @@ class Paginator extends \Illuminate\Support\ServiceProvider {
         }
 
         $last_page = ceil($total_rows / self::$rows_per_page);
+        
+        $from = self::$rows_per_page * (self::$page - 1) + 1;
+        $to = self::$page == $last_page ? $total_rows : self::$page * self::$rows_per_page;
 
         return (Object) [
                     'current_page' => self::$page,
@@ -56,7 +59,9 @@ class Paginator extends \Illuminate\Support\ServiceProvider {
                     'first_page' => $total_rows > 0 ? 1 : NULL,
                     'last_page' => $last_page,
                     'prev_page' => self::$page == 1 ? NULL : self::$page - 1,
-                    'next_page' => self::$page == $last_page ? NULL : ($totalItem == 0 ? NULL : self::$page + 1)
+                    'next_page' => self::$page == $last_page ? NULL : ($totalItem == 0 ? NULL : self::$page + 1),
+                    'from' => $from,
+                    'to' => $to
         ];
     }
 
